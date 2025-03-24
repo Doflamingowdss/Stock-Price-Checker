@@ -26,7 +26,8 @@ app.use(helmet({
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'"],
       styleSrc: ["'self'"],
-      imgSrc: ["'self'"]
+      imgSrc: ["'self'"],
+      connectSrc: ["'self'", "https://stock-price-checker-proxy.freecodecamp.rocks"]
     }
   },
   frameguard: {
@@ -58,19 +59,19 @@ app.use(function(req, res, next) {
 });
 
 //Start our server and tests!
-app.listen(process.env.PORT || 3000, function () {
-  console.log("Listening on port " + process.env.PORT);
+const port = process.env.NODE_ENV === 'test' ? 3001 : process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log("Listening on port " + port);
   if(process.env.NODE_ENV==='test') {
     console.log('Running Tests...');
     setTimeout(function () {
       try {
         runner.run();
       } catch(e) {
-        var error = e;
-          console.log('Tests are not valid:');
-          console.log(error);
+        console.log('Tests are not valid:');
+        console.log(e);
       }
-    }, 3500);
+    }, 1500);
   }
 });
 

@@ -8,8 +8,15 @@ const anonymizeIP = (ip) => {
 }
 
 const Stock_Price_Checker_Schema = new Schema({
-  symbol: { type: String, required: true },
-  likes: { type: [String], default: [] } // Will store anonymized IPs
+  symbol: { 
+    type: String, 
+    required: true,
+    uppercase: true
+  },
+  likes: { 
+    type: [String], 
+    default: [] 
+  } // Will store anonymized IPs
 })
 
 Stock_Price_Checker_Schema.methods.addLike = function(ip) {

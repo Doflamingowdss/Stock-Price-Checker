@@ -9,12 +9,8 @@ const connectDB = async () => {
     await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true,
-      serverSelectionTimeoutMS: 10000, // Increased timeout for initial connection
-      heartbeatFrequencyMS: 2000,     // Check connection status more frequently
-      socketTimeoutMS: 45000,         // Close sockets after 45s of inactivity
-      retryWrites: true,
-      w: 'majority',
+      serverSelectionTimeoutMS: 15000, // Increased timeout
+      socketTimeoutMS: 45000,
       family: 4                       // Use IPv4, skip trying IPv6
     });
     console.log(`Connected to Database ${dbName}`);
@@ -25,7 +21,7 @@ const connectDB = async () => {
   }
 };
 
-// Connect to MongoDB
+// Initial connection
 connectDB();
 
 const db = mongoose.connection;
